@@ -1,0 +1,29 @@
+<svg id="svg" width="100vw" height="300px">
+</svg>
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<!-- <oof> -->
+  <agm-map [latitude]="map_center.lat" [longitude]="map_center.lng" [zoom]="zoom" [disableDefaultUI]="true">
+    <!-- <span #marker> -->
+      <agm-marker [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+    <!-- </span> -->
+  </agm-map>
+<!-- </oof> -->
+
+<button (click)="up()">Up</button>
+<button (click)="right()">Right</button>
+<button (click)="down()">Down</button>
+<button (click)="left()">Left</button>
+<br>
+<br>
+Previous locations
+<div *ngFor="let location of previousPositions">
+    <p>
+      {{location.lat}}
+      and
+      {{location.lng}}
+    </p>
+</div>
+
+
