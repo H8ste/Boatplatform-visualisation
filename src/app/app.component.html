@@ -1,29 +1,75 @@
-<svg id="svg" width="100vw" height="300px">
-</svg>
-
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<!-- <oof> -->
-  <agm-map [latitude]="map_center.lat" [longitude]="map_center.lng" [zoom]="zoom" [disableDefaultUI]="true">
-    <!-- <span #marker> -->
-      <agm-marker [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
-    <!-- </span> -->
-  </agm-map>
-<!-- </oof> -->
+<!-- <google-map
+  height="300px"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+  (mapClick)="click($event)"
+>
+  <map-marker
+    id="markerID"
+    #markerElem
+    [position]="marker_position"
+    options="clickable:false"
+    (positionChanged)="position_changed()"
+    (visibleChanged)="visible_changed()"
+  >
+  </map-marker>
+</google-map> -->
+<agm-map
+  [latitude]="latitude"
+  [longitude]="longitude"
+  [scrollwheel]="false"
+  [zoom]="zoom"
+>
+  <ng-container>
+    <agm-polyline
+      *ngFor="let polyline of polylines; let i = index"
+      [strokeColor]="polyline.color"
+    >
+      <agm-polyline-point
+        *ngFor="let point of polyline.path"
+        [latitude]="point.latitude"
+        [longitude]="point.longitude"
+      >
+      </agm-polyline-point>
+    </agm-polyline>
+  </ng-container>
+</agm-map>
+<!-- <svg id="svg" width="100%" height="300px">
+  <a *ngFor="let line of boatLocations.slice(0, -1); let i = index">
+    <line
+      [attr.x1]="line.point1.coordinate.x"
+      [attr.y1]="line.point1.coordinate.y"
+      [attr.x2]="line.point2.coordinate.x"
+      [attr.y2]="line.point2.coordinate.y"
+      style="stroke:rgb(255,0,0);stroke-width:2"
+    />
+  </a>
+  <a id="extraline" *ngIf="boatLocations.length > 1">
+    <line
+      [attr.x1]="boatLocations[boatLocations.length - 2].point1.coordinate.x"
+      [attr.y1]="boatLocations[boatLocations.length - 2].point1.coordinate.y"
+      [attr.x2]="boatLocations[boatLocations.length - 1].point1.coordinate.x"
+      [attr.y2]="boatLocations[boatLocations.length - 1].point1.coordinate.y"
+      style="stroke:rgb(255,0,0);stroke-width:2"
+    />
+  </a>
+</svg> -->
 
-<button (click)="up()">Up</button>
-<button (click)="right()">Right</button>
-<button (click)="down()">Down</button>
-<button (click)="left()">Left</button>
-<br>
-<br>
+<button (click)="moveMarkerManually('up', 0.0002)">Up</button>
+<button (click)="moveMarkerManually('right', 0.0002)">Right</button>
+<button (click)="moveMarkerManually('down', 0.0002)">Down</button>
+<button (click)="moveMarkerManually('left', 0.0002)">Left</button>
+<br />
+<br />
 Previous locations
-<div *ngFor="let location of previousPositions">
-    <p>
-      {{location.lat}}
-      and
-      {{location.lng}}
-    </p>
+<div *ngFor="let lineArray of boatLocations">
+  <p>
+    {{ lineArray.point1.lat }}
+    and
+    {{ lineArray.point1.lng }}
+  </p>
 </div>
-
-

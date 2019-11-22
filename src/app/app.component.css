@@ -3,4 +3,5 @@ agm-map {
   }
 #svg {
   position: absolute;
+  top: 0px;
 }
