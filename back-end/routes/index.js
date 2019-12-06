@@ -1,12 +1,14 @@
 import boat from "../controllers/boatController";
-import boatModel from "../models/boatModel";
 
 export default app => {
-  app.route("/boat").post(boat.sendAndSaveBoat);
+  app
+    .route("/boat")
+    .get(boat.getAllBoatVariables)
+    .post(boat.retrieveSensorsFromBoat);
+  app.route("/boat/:boatID").delete(boat.deleteBoatVariable);
+  
+  app.route("/boats").delete(boat.deleteAllBoats);
 
-  // app
-  //   .route("/spells/:spellId")
-  //   .get(boat.getSpell)
-  //   .put(boat.updateSpell)
-  //   .delete(boat.deleteSpell);
+  app.route("/boatRecent/:elementToReadFrom").get(boat.getRecentInputs);
+  app.route("/boatInitial").get(boat.getInitialInput);
 };

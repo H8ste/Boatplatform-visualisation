@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { AgmCoreModule, MapsAPILoader } from "@agm/core";
 import { GoogleMapsModule } from "@angular/google-maps";
 import { AppRoutingModule } from "./app-routing.module";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 
@@ -11,6 +12,7 @@ import { AppComponent } from "./app.component";
   imports: [
     GoogleMapsModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: ""
