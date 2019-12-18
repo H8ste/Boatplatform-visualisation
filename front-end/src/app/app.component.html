@@ -4,6 +4,7 @@
     [longitude]="longitude"
     [scrollwheel]="false"
     [zoom]="zoom"
+    [mapTypeId]="this.viewType"
     id="map"
   >
     <ng-container>
@@ -22,37 +23,11 @@
       </agm-polyline>
     </ng-container>
   </agm-map>
-  <span id="compass" *ngIf="showcompass">
-    <img id="" src="assets/compass_example.png" alt="pic of boat" />
-
-    <img
-      src="assets/pointer_example.png"
-      alt="pic of boat"
-      [ngStyle]="{
-        position: 'relative',
-        top: '-303px',
-        left: '1.5%',
-        height: '300px',
-        'transform-origin': 'center',
-        transform: 'scale(0.4)' + 'rotate(' + compassdegree + 'deg)'
-      }"
-    />
-    <h3>Compass {{ compassdegree }}°</h3>
-  </span>
-  <!--
-  <button (click)="moveMarkerManually('up', 0.0002)">Up</button>
-  <button (click)="moveMarkerManually('right', 0.0002)">Right</button>
-  <button (click)="moveMarkerManually('down', 0.0002)">Down</button>
-  <button (click)="moveMarkerManually('left', 0.0002)">Left</button>
-  <br />
-  <br /> -->
-
-  <!-- Previous locations -->
 </div>
 <div id="imu">
   <span id="degreeX" *ngIf="showimu">
     <img
-      src="assets/frontal_boat_example.png"
+      src="assets/boat_front.png"
       alt="pic of boat"
       [ngStyle]="{ transform: 'rotate(' + imudegree[0] + 'deg)' }"
     />
@@ -60,7 +35,7 @@
   </span>
   <span id="degreeY" *ngIf="showimu">
     <img
-      src="assets/side_boat_example.png"
+      src="assets/boat_side.png"
       alt="pic of boat"
       [ngStyle]="{ transform: 'rotate(' + imudegree[1] + 'deg)' }"
     />

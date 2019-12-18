@@ -1,8 +1,9 @@
 import boat from "../models/boatModel.js";
 
 exports.sendAndSaveBoat = (req, res) => {
+  console.log(req.body);
   const newBoat = new boat(req.body);
-
+  console.log(newBoat);
   newBoat.save((err, boat) => {
     if (err) {
       console.log(err);
@@ -39,7 +40,6 @@ exports.deleteBoatVariable = (req, res) => {
     }
   );
 };
-
 exports.deleteAllBoats = (req, res) => {
   boat.remove({}, (err, response) => {
     if (err) {
@@ -55,9 +55,9 @@ exports.retrieveSensorsFromBoat = (req, res) => {
     gps: JSON.parse(req.body.gps),
     imu: JSON.parse(req.body.imu),
     time: JSON.parse(req.body.time),
-    mag: JSON.parse(req.body.mag),
     wind: JSON.parse(req.body.wind),
-    imu_dv: JSON.parse(req.body.imu_dv)
+    rudder: JSON.parse(req.body.rudder),
+    sail: JSON.parse(req.body.sail)
   });
   newGPS.save((err, boat) => {
     if (err) {
@@ -74,10 +74,10 @@ exports.getRecentInputs = (req, res) => {
       console.log(err);
       res.send(err);
     } else {
-      if (databaseEntriesCount - req.params.elementToReadFrom !== 0) {
+      if (databaseEntriesCount - Number(req.params.elementToReadFrom) !== 0) {
         boat.find(
           {},
-          "_id gps imu mag",
+          "_id gps imu",
           {
             limit: databaseEntriesCount - req.params.elementToReadFrom,
             sort: "-_id"
@@ -94,11 +94,7 @@ exports.getRecentInputs = (req, res) => {
           }
         );
       } else {
-        res
-          .status(404)
-          .send(
-            "no new unseen entries could be found in database, make subsequent queries to find new entries"
-          );
+        res.send({ message: "No new entries can be found in database" });
       }
     }
   });
@@ -110,14 +106,17 @@ exports.getInitialInput = (req, res) => {
     } else {
       boat.find(
         {},
-        "_id gps imu mag",
-        { limit: 1, sort: "_id" },
+        "_id gps imu",
+        { limit: Number(req.params.elementToReadFrom) + 1, sort: "_id" },
         (err, _boat) => {
           if (err) {
             console.log(err);
             res.send(err);
           } else {
-            res.json({ data: _boat[0], dbCount: databaseEntriesCount });
+            res.json({
+              data: _boat[req.params.elementToReadFrom],
+              dbCount: databaseEntriesCount
+            });
           }
         }
       );

@@ -1,8 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-/**
- * Create database scheme for spells
- */
 const BoatScheme = new Schema({
   gps: {
     err_climb: Number,
@@ -96,22 +93,11 @@ const BoatScheme = new Schema({
     x: Number,
     theta: Number
   },
-  imu_dv: {
-    linear: {
-      y: Number,
-      x: Number,
-      z: Number
-    },
-    angular: {
-      y: Number,
-      x: Number,
-      z: Number
-    }
+  rudder: {
+    data: Number
   },
-  mag: {
-    y: Number,
-    x: Number,
-    z: Number
+  sail: {
+    data: Number
   },
   time: {
     data: Number

@@ -8,10 +8,6 @@ agm-map {
 #map {
   flex: 3;
 }
-#svg {
-  position: absolute;
-  top: 0px;
-}
 #imu {
   height: 300px;
   display: flex;
@@ -23,7 +19,6 @@ agm-map {
   max-height: 200px;
   object-fit: contain;
 }
-
 #degreeX,
 #degreeY {
   overflow: hidden;
@@ -32,28 +27,4 @@ agm-map {
   flex-direction: column;
   text-align: center;
   justify-content: flex-end;
-}
-#compass {
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  overflow: hidden;
-  align-items: center;
-}
-#compass h3 {
-  position: absolute;
-  padding-top: 265px;
-}
-#compass img {
-  height: 300px;
-  object-fit: contain;
-}
-#compassIMG {
-  position: absolute;
-}
-
-#pointerOOF {
-  max-height: 150px;
-  object-fit: contain;
 }
